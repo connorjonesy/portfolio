@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432" #maps host port to container port, only for dev; NOT for prod
+    volumes:
+      - pgdata:/var/lib/postgresql/data #postgres stores data here inside the container
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  src:
+    env_file:
+      - .env
+    build: ./src #We dont use a prebuilt image, use our own Dockerfile in src
+    restart: unless-stopped
+    environment:
+      #FastAPI will use this connection string via SQLAlchemy to connect to Postgres
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      #Maps host to container port 8000(where uvicorn listens),so we can hit localhost:8000 from browser
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./src:/app #bind mount for live reload during dev
+
+volumes:
+  pgdata:
