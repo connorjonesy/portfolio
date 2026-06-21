@@ -33,7 +33,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./src:/app #bind mount for live reload during dev
+      - ./src:/app/src #bind mount for live reload during dev
 
 volumes:
   pgdata:

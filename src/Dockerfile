@@ -2,7 +2,7 @@
 FROM python:3.12-slim 
 
 #workin dir inside the container
-WORKDIR /app
+WORKDIR /app/src
 
 #only copy this file as a Docker caching optimization
 COPY requirements.txt .
