@@ -6,6 +6,7 @@ from app.schemas.user import UserCreate, UserResponse
 from app.models.user import User
 from app.security.security import hash_password
 from shared.database import get_db
+from typing import List #Python module
 
 app = FastAPI()
 
@@ -34,3 +35,7 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
     db.refresh(db_user)
     return db_user
+
+@app.get("/users", response_model=List[UserResponse])
+def get_users(db: Session = Depends(get_db)):
+    return db.query(User).all()
