@@ -2,10 +2,28 @@
 
 **Build Notes**
 
-* When changing a model => might need to change db url with localhost instead of db
-alembic revision --autogenerate -m "describe the change"
+* When changing a model 
 
-* when adding dependency to requirements.txt => docker compose up --build
+might need to change db url with localhost instead of db
+
+```
+alembic revision --autogenerate -m "describe the change"
+```
+
+* when adding dependency to requirements.txt 
+
+```
+docker compose up --build
+```
+
+* when spinning up the dev environment
+
+```
+source venv/bin/activate
+docker compose up
+```
+
+Then, Append url provided by uvicorn with /health or /docs to confirm everything is groovy
 
 **Dev Log**
 
@@ -19,4 +37,9 @@ Now I should be able to use Bruno (Which is pretty intuitive to use, I have foun
 
 Why not postman?
 
-I feel like Bruno is postman stripped of bloat.
+Cute doggy. But also, I feel like Bruno is postman stripped of bloat.
+
+* *bruno tips*
+
+make sure bruno GUI has the local environment selected so bruno knows where to grab baseUrl
+always start with a health check to confirm the connection
