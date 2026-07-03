@@ -29,9 +29,9 @@ Then, Append url provided by uvicorn with /health or /docs to confirm everything
 
 In this project, I want to create a portfolio site that is both fun to work on and useful in learning web dev tools I don't usually use.
 
-_yoga-bruno branch_
+_bruno_
 
-This branch is for the Bruno issue. I want to add Bruno so that I can manually test my API endpoints as I develop them. I have found in the past that I write out API files and then try and test them all in one-shot at the end; this method is prone to headache. 
+I want to add Bruno so that I can manually test my API endpoints as I develop them. I have found in the past that I write out API files and then try and test them all in one-shot at the end; this method is prone to headache. 
 
 Now I should be able to use Bruno (Which is pretty intuitive to use, I have found) to keep me in good health for API testing.
 
@@ -39,7 +39,11 @@ Why not postman?
 
 Cute doggy. But also, I feel like Bruno is postman stripped of bloat.
 
-* *bruno tips*
+*tips*
 
 make sure bruno GUI has the local environment selected so bruno knows where to grab baseUrl
 always start with a health check to confirm the connection
+
+*pytest*
+
+Now for some automated regression. Some key things to note here: Added a requirements-dev file as my local environment requirements in order to run pytest, also each test gets its own sqlite db test.db. I've git ignored it because its not important really, its just a sqlite database that stores data for my pytests to use

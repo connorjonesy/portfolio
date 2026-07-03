@@ -12,3 +12,5 @@ __pycache__/
 .dockerignore
 
 .DS_Store
+
+test.db
