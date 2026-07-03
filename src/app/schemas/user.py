@@ -12,5 +12,5 @@ class UserResponse(BaseModel):
     username: str
     email: str
 
-    class Config:
+    class ConfigDict:
         from_attributes = True #lets pydantic read sqlalchemy model attributes
