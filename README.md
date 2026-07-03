@@ -25,6 +25,12 @@ docker compose up
 
 Then, Append url provided by uvicorn with /health or /docs to confirm everything is groovy
 
+* whence a change is made to pytest requirements
+
+```
+pip install -r src/requirements-dev.txt
+```
+
 **Dev Log**
 
 In this project, I want to create a portfolio site that is both fun to work on and useful in learning web dev tools I don't usually use.
