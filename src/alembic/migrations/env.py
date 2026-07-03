@@ -1,12 +1,11 @@
+import os
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from dotenv import load_dotenv
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-
-import os
-from dotenv import load_dotenv
+from shared.database import Base
 
 load_dotenv()
 # this is the Alembic Config object, which provides
@@ -20,9 +19,7 @@ if config.config_file_name is not None:
 
 config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
 
-# add your model's MetaData object here
-from shared.database import Base
-import app.models
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from admin.main import app
-from shared.database import get_db, Base
+from shared.database import Base, get_db
 
 SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///./test.db"
 

@@ -1,12 +1,13 @@
-from fastapi import FastAPI, Depends, HTTPException
+from typing import List  #Python module
+
+from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.schemas.user import UserCreate, UserResponse
 from app.models.user import User
+from app.schemas.user import UserCreate, UserResponse
 from app.security.security import hash_password
 from shared.database import get_db
-from typing import List #Python module
 
 app = FastAPI()
 
