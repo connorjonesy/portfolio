@@ -1,3 +1,4 @@
 pytest
 pytest-asyncio
 httpx2
+ruff
