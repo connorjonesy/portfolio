@@ -40,3 +40,26 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
 @app.get("/users", response_model=List[UserResponse])
 def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
+
+@app.get("/users/{id}", response_model=List[UserResponse])
+def get_user(id: int, db: Session = Depends(get_db)):
+    '''
+    We use first here bc sqlalchemy query returns a query object, not a row. 
+    So we choose to get the first row (should only be 1 row anyway)
+    and it returns None if no id match
+    '''
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.post("/auth/login", response_model=List[UserResponse])
+def login(credentials: UserLogin, db: Session = Depends(get_db)):
+    '''
+    sub in the token payload -- subject is the standard JWT claim for id who the token belongs to
+    '''
+    user = db.query(User).filter(User.username == credentials.username).first()
+    if not user or not verify_password(credentials.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid Credentials")
+    token = create_access_token(data={"sub": str(user.id)})
+    return {"access_token": token, "token_type": "bearer"}

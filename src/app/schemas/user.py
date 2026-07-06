@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class UserCreate(BaseModel):
     """What the API expects when creating a user"""
     username: str
@@ -15,3 +14,11 @@ class UserResponse(BaseModel):
 
     class ConfigDict:
         from_attributes = True #lets pydantic read sqlalchemy model attributes
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
