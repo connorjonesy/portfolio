@@ -50,11 +50,14 @@ Why not postman?
 
 Cute doggy. But also, I feel like Bruno is postman stripped of bloat.
 
-*tips*
+*bruno_tips*
 
 make sure bruno GUI has the local environment selected so bruno knows where to grab baseUrl
 always start with a health check to confirm the connection
+copy and paste the access token from login when testing get-me
 
 *pytest*
 
 Now for some automated regression. Some key things to note here: Added a requirements-dev file as my local environment requirements in order to run pytest, also each test gets its own sqlite db test.db. I've git ignored it because its not important really, its just a sqlite database that stores data for my pytests to use
+
+Now the CI runner obviously can't access my .env file, so I am going to add my super secret key to the github secrets of this repo. In my head, I'm thinking, isn't that kinda unsafe?? And the answer is yes! Since this is just for my development environment / CI environment... and this is a small project with few real users.. I guess its ok. But personally I like the idea of least privilege, each env only has access to what it needs. So Im writing this down to make a mental note to definitely generate a fresh key when it comes time to deploy, but for now this is fine.

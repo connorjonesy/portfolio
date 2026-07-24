@@ -46,3 +46,4 @@ jobs:
         run: pytest src/tests/ -v
         env:
           DATABASE_URL: sqlite:///./test.db
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}

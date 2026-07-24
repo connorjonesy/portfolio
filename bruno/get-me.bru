@@ -1,0 +1,14 @@
+meta {
+  name: Get Me
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/users/me
+  auth: bearer
+}
+
+auth:bearer {
+  token: put_token_here
+}
