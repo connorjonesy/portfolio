@@ -5,8 +5,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.user import User
-from app.schemas.user import UserCreate, UserResponse
-from app.security.security import hash_password
+from app.schemas.user import UserCreate, UserResponse, UserLogin, TokenResponse
+from app.security.security import hash_password, verify_password, create_access_token, get_current_user
 from shared.database import get_db
 
 app = FastAPI()
@@ -41,6 +41,10 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
 def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
+@app.get("/users/me", response_model=UserResponse)
+def get_me(current_user: User = Depends(get_current_user)):
+    return current_user
+
 @app.get("/users/{id}", response_model=List[UserResponse])
 def get_user(id: int, db: Session = Depends(get_db)):
     '''
@@ -53,13 +57,14 @@ def get_user(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@app.post("/auth/login", response_model=List[UserResponse])
+@app.post("/auth/login", response_model=TokenResponse)
 def login(credentials: UserLogin, db: Session = Depends(get_db)):
     '''
     sub in the token payload -- subject is the standard JWT claim for id who the token belongs to
     '''
     user = db.query(User).filter(User.username == credentials.username).first()
-    if not user or not verify_password(credentials.password, user.hashed_password):
+    if not user or not verify_password(credentials.password, str(user.hashed_password)):
         raise HTTPException(status_code=401, detail="Invalid Credentials")
     token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer"}
+
