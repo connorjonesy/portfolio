@@ -50,10 +50,11 @@ Why not postman?
 
 Cute doggy. But also, I feel like Bruno is postman stripped of bloat.
 
-*tips*
+*bruno_tips*
 
 make sure bruno GUI has the local environment selected so bruno knows where to grab baseUrl
 always start with a health check to confirm the connection
+copy and paste the access token from login when testing get-me
 
 *pytest*
 

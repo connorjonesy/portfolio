@@ -1,13 +1,14 @@
 import os
-import bcrypt
 from datetime import datetime, timedelta, timezone
+
+import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from shared.database import get_db
-from app.models.user import User
 
+from app.models.user import User
+from shared.database import get_db
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:

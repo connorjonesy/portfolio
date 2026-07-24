@@ -5,8 +5,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.user import User
-from app.schemas.user import UserCreate, UserResponse, UserLogin, TokenResponse
-from app.security.security import hash_password, verify_password, create_access_token, get_current_user
+from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse
+from app.security.security import (
+    create_access_token,
+    get_current_user,
+    hash_password,
+    verify_password,
+)
 from shared.database import get_db
 
 app = FastAPI()
