@@ -61,3 +61,10 @@ copy and paste the access token from login when testing get-me
 Now for some automated regression. Some key things to note here: Added a requirements-dev file as my local environment requirements in order to run pytest, also each test gets its own sqlite db test.db. I've git ignored it because its not important really, its just a sqlite database that stores data for my pytests to use
 
 Now the CI runner obviously can't access my .env file, so I am going to add my super secret key to the github secrets of this repo. In my head, I'm thinking, isn't that kinda unsafe?? And the answer is yes! Since this is just for my development environment / CI environment... and this is a small project with few real users.. I guess its ok. But personally I like the idea of least privilege, each env only has access to what it needs. So Im writing this down to make a mental note to definitely generate a fresh key when it comes time to deploy, but for now this is fine.
+
+*frontend*
+Hot reloaded frontend? Not in this environment. I feel like 2 Dockerfiles in the same project is the 8th sin. Therefore, while developing, I am using the tried and true method of opening up VScode and running the live server plugin on my index.html file. But dont worry, Im not actually coding in that editor. I will still be developing in nvim. VScode has a vim plugin but its just not the same...
+
+To think about for now: 
+how to get sudoku css override, how to apply styles before the elements exist
+sudoku alg

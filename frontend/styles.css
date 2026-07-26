@@ -1,0 +1,241 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-image: url('images/bg2.jpg');
+    background-size: contain;
+    background-repeat: repeat;
+    width: 100%;
+    min-height: 94vh;
+    height: 100%;
+    position: relative;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#wrapper{
+    background-color: #1c1e1f;
+    width: 1000px;
+    height: 80%;
+    margin: 50px auto;
+    display: flex;
+}
+#nav{
+    flex: 20%;
+    padding: 10px;
+    /* line-height: 40px; */
+    /* border: 1px solid white; */
+    margin-right: 10px;
+}
+#nav ul{
+    list-style-type: none;
+}
+#nav ul li{
+    margin-top: 10px;
+    border: 1px solid #B0D8F7;
+    border-radius: 10px;
+    background-color: #B0D8F7;
+    padding: 5px;
+}
+#nav ul li a{
+    color: #1c1e1f;
+    text-align: center;
+    display: block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#nav ul li:hover{
+    background-color: #6596ba;
+    border-radius: 10px;
+}
+h1{
+    color: white;
+}
+h2{
+    color: #B0D8F7;
+    font-style: italic;
+}
+p{
+    color: #8d8e8f;
+}
+a{
+    text-decoration: none;
+    color: #B0D8F7;
+}
+a:hover{
+    color: #6596ba;
+}
+#footspan{
+    color: white;
+}
+footer{
+position: absolute;
+bottom: 0px;
+}
+#hero-img{
+    width: 460px;
+    height: 100%;
+    box-shadow: 5px 5px 50px;
+}
+.slash{
+    color: #8d8e8f;
+}
+#headermain{
+    padding: 24px;
+    flex: 100%;
+}
+#herowrapper{
+    position: relative;
+    /* border: 2px solid white; */
+}
+#hero-info{
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 250px;
+    z-index: 2;
+    text-align: center;
+}
+#hero-info h2{
+    padding-bottom: 20px;
+}
+#hero-info a{
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: #1c1e1f;
+    background-color: #B0D8F7;
+}
+#hero-info a:hover{
+    background-color: #6596ba;
+}
+#abme{
+    padding-bottom: 20px;
+}
+#abme1{
+    padding-bottom: 20px;
+}
+#headermain p{
+    padding-bottom: 20px;
+}
+.white{
+    color: #ffffff;
+}
+
+form{
+    background-color: #B0D8F7;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+fieldset{
+    padding: 5px;
+}
+table, th, td{
+    border: 1px solid white;
+    background-color: #B0D8F7;
+    padding: 5px;
+    border-collapse: collapse;
+}
+input[type=submit]{
+    padding: 10px;
+    width: 100%;
+}
+@media screen and (max-width:1024px){
+    #wrapper{
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+    }
+    #headermain img{
+        display: none;
+    }
+    #headermain{
+        overflow: auto;
+    }
+    #hero-img{
+        display: none;
+    }
+    #herowrapper{
+        border-right: 1px solid white;
+        border-left: 1px solid white;
+    }
+    #herowrapper a{
+        display: block;
+    }
+    #hero-info{
+    position: relative;
+    top: 2px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 20px;
+    width: 250px;
+    z-index: 2;
+    text-align: center;
+    }
+    #hero-info h1{
+        padding-bottom: 20px;
+    }
+    #hero-info h2{
+        padding-bottom: 20px;
+    }
+    footer{
+        right: 6px;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    #wrapper{
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 250px 100px auto;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        margin: 0;
+    }
+    #herowrapper{
+        border: none;
+        width: 100%;
+        grid-row: 1/2;
+    }
+    #nav{
+        grid-row: 2/3;
+        /* border: 1px solid white; */
+        width: 100%;
+    }
+    #nav ul{
+        display: flex;
+        width: 100%;
+    }
+    #nav ul li:last-child{
+        border-right: none;
+    }
+    #nav ul li{
+        /* padding: 10px;
+        margin-left: auto;
+        margin-right: auto; */
+        margin: 10px;
+        width: 100%;
+    }
+    #nav a{
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    #headermain{
+        grid-row: 3/4;
+    }
+    #hero-info{
+        /* border: 1px solid white; */
+        width: 100%;
+    }
+    #hero-img{
+        display: none;
+    }
+}
