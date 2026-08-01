@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML,CSS,Javascript,Resume,Portfolio,Website">
-    <title>Connor Jones Portfolio</title>
+    <title>Portfolio - Connor Jones</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type=“image/x-icon” href="images/favicon.ico">
+    <script src="app.js" defer></script>
 </head>
 
 <!--TODO: Fragmented approach methinks. Grab the main section from other html files-->
@@ -22,11 +23,11 @@
         <div id="nav">
             <nav>
                 <ul>
-                    <li>About Me</li>
-                    <li>Work</li>
-                    <li>Blog</li>
-                    <li>Contact</li>
-                    <li>Daily Sudoku!</li>
+                    <li id='link1'>About Me</li>
+                    <li id='link2'>Work</li>
+                    <li id='link3'>Blog</li>
+                    <li id='link4'>Contact</li>
+                    <li id='link5'>Daily Sudoku!</li>
                 </ul>
             </nav>
         </div>
@@ -43,23 +44,24 @@
             </div>
         </div>
 
-
-        <div id="headermain">
-            <h1 id="abme">About Me</h1>
-            <div id="abme1">
-            <h2>Vancouver <span class="slash">/</span> Software Developer</h2>
+        <section id="dynamic_section">
+            <div id="headermain">
+                <h1 id="abme">About Me</h1>
+                <div id="abme1">
+                <h2>Vancouver <span class="slash">/</span> Software Developer</h2>
+                </div>
+                <p>
+                <span id="currently"><b>Currently:</b> Software QA @ Reliable Controls.</span><br><br>
+                I like software, working with good people, reading books, drinking lager on a hot day, Neovim, offices where the air conditioning isn't too cold, knit sweaters, and designing data-intensive applications.
+                #GoOilers<br>
+                <br>B.Sc Computing Science at SFU.
+                </p>
+                <div id="aside_img">
+                <!--TODO replace this with something more relevant to the present -->
+                <img src="images/Poster3.jpg" alt="nobility designs" width="380" height="200">
+                </div>
             </div>
-            <p>
-            <span id="currently"><b>Currently:</b> Software QA @ Reliable Controls.</span><br><br>
-            I like software, working with good people, reading books, drinking lager on a hot day, Neovim, offices where the air conditioning isn't too cold, knit sweaters, and designing data-intensive applications.
-            #GoOilers<br>
-            <br>B.Sc Computing Science at SFU.
-            </p>
-            <div id="aside_img">
-            <!--TODO replace this with something more relevant to the present -->
-            <img src="images/Poster3.jpg" alt="nobility designs" width="380" height="200">
-            </div>
-        </div>
+        </section>
 
 
     </div> <!-- end wrapper div -->
