@@ -21,3 +21,7 @@
 
 .sud_cell[data-col="2"], .sud_cell[data-col="5"] { border-right: 5px solid white; }
 .sud_cell[data-row="2"], .sud_cell[data-row="5"] { border-bottom: 5px solid white; }
+
+.sud_cell:hover{
+	background-color: white;
+}
