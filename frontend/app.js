@@ -21,6 +21,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				document.getElementById('wrapper').classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -29,6 +30,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				document.getElementById('wrapper').classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -37,6 +39,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				document.getElementById('wrapper').classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -45,6 +48,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				document.getElementById('wrapper').classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -53,6 +57,8 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				makeGrid();
+				document.getElementById('wrapper').classList.add('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -60,9 +66,13 @@ function on_link_click(e) {
 
 //-----------------------Sudoku---------------------------
 
-//ya im not manually writing 81 divs bossman
 function makeGrid() {
 	let container = document.getElementById('sud_container');
-	for (i = 0; i < 81; i++)
-		container.append(document.createElement("div"));
+	for (let i = 0; i < 81; i++) {
+		let cell = document.createElement("div");
+		cell.classList.add("sud_cell");
+		cell.dataset.row = Math.floor(i / 9);
+		cell.dataset.col = i % 9;
+		container.append(cell);
+	}
 }

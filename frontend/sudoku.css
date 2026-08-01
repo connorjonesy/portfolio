@@ -1,1 +1,23 @@
-todo
+#wrapper.sudoku-active{
+    width: 80%;
+}
+#sud_container {
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	grid-template-rows: repeat(9, 1fr);
+	width: 450px;
+	height: 450px;
+	border: 2px solid #000;
+}
+
+.sud_cell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #999;
+	font-size: 1.2rem;
+	box-sizing: border-box;
+}
+
+.sud_cell[data-col="2"], .sud_cell[data-col="5"] { border-right: 5px solid white; }
+.sud_cell[data-row="2"], .sud_cell[data-row="5"] { border-bottom: 5px solid white; }
