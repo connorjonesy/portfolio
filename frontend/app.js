@@ -1,6 +1,10 @@
+const API_URL = window.location.hostname === "localhost"
+	? "http://localhost:8000"
+	: "https://facebook.com" // my production site
 //-----------------------Not Sudoku---------------------------
 
 let section = document.getElementById('dynamic_section');
+let wrapper = document.getElementById('wrapper');
 
 //Links
 let about_me_link = document.getElementById('link1');
@@ -21,7 +25,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				document.getElementById('wrapper').classList.remove('sudoku-active');
+				wrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -30,7 +34,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				document.getElementById('wrapper').classList.remove('sudoku-active');
+				wrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -39,7 +43,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				document.getElementById('wrapper').classList.remove('sudoku-active');
+				wrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -48,7 +52,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				document.getElementById('wrapper').classList.remove('sudoku-active');
+				wrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -58,11 +62,17 @@ function on_link_click(e) {
 			.then(html => {
 				section.innerHTML = html;
 				makeGrid();
-				document.getElementById('wrapper').classList.add('sudoku-active');
+				wrapper.classList.add('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
 }
+
+wrapper.addEventListener('click', function(e) {
+	if (e.target.classList.contains('login_btns')) {
+		on_login(e);
+	}
+});
 
 //-----------------------Sudoku---------------------------
 
@@ -76,3 +86,72 @@ function makeGrid() {
 		container.append(cell);
 	}
 }
+
+function on_login(e) {
+	let l_form = document.getElementById('login_form');
+	let r_form = document.getElementById('register_form');
+	if (e.target.id == 'login_btn') {
+		l_form.style.display = 'block';
+		r_form.style.display = 'none';
+	}
+
+	if (e.target.id == 'register_btn') {
+		l_form.style.display = 'none';
+		r_form.style.display = 'block';
+	}
+}
+
+function hide_login_forms() {
+	const login_div = document.getElementById('login_div');
+	login_div.style.display = 'none';
+}
+
+document.getElementById("login_form").addEventListener("submit", async (e) => {
+	e.preventDefault();  // stops the page from reloading
+
+	const username = document.getElementById("username_login").value;
+	const password = document.getElementById("pw_login").value;
+
+	const response = await fetch(`${API_URL}/auth/login`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ username, password })
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		localStorage.setItem("token", data.access_token); //store the JWT
+		//Start a timer..
+		hide_login_forms();
+		// Need to call the Sudoku API from here somehow...
+	} else {
+		const error = await response.json();
+		console.error(error.detail);
+	}
+});
+
+
+document.getElementById("register_form").addEventListener("submit", async (e) => {
+	e.preventDefault();  // stops the page from reloading
+
+	const username = document.getElementById("username_reg").value;
+	const password = document.getElementById("pw_reg").value;
+	const email = document.getElementById("email_reg").value;
+
+	const response = await fetch(`${API_URL}/users`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ username, email, password })
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		localStorage.setItem("token", data.access_token); //store the JWT
+		hide_login_forms();
+		//Start a timer..
+		// Need to call the Sudoku API from here somehow...
+	} else {
+		const error = await response.json();
+		console.error(error.detail);
+	}
+});

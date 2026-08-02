@@ -65,6 +65,25 @@ Now the CI runner obviously can't access my .env file, so I am going to add my s
 *frontend*
 Hot reloaded frontend? Not in this environment. I feel like 2 Dockerfiles in the same project is the 8th sin. Therefore, while developing, I am using the tried and true method of opening up VScode and running the live server plugin on my index.html file. But dont worry, Im not actually coding in that editor. I will still be developing in nvim. VScode has a vim plugin but its just not the same...
 
-To think about for now: 
-how to get sudoku css override, how to apply styles before the elements exist
-sudoku alg
+
+Sudoku
+Learned something new: Every HTML element has a classList property because html elements can have multiple classes. classList is a DOMTokenList that comes with methods like add, remove, toggle, contains etc. 
+I went with the add method for the sudoku link click target and remove method for all other pages. It doesn't look like any errors are thrown when removing something that isn't there, so, I think it works!
+Also learned querySelectorAll returns a NodeList, which does **not** have an addEventListener method. This means it's imperative to loop thru each element in the list and add it to its own event listener.
+Storing JWT in localStorage because this website is pretty low traffic low stakes. With a real data-intensive site I would need to do something different
+
+
+small UI overlay for login overtop the board
+logging in or pressing play triggers our API. API generates 26 numbers and positions for the board. API also has a verify function. we display the numbers and let the player play client side. Once the last number is played, call the API verify function and repeat until game over
+
+Daily leaderboard and second tab for all-time leaderboard
+
+alembic migration would include new table for all time scores related to a user
++ a daily time for the original table methinks (user table)
+
+Order of changes should be:
+1. Login Overlay -> connect to backend -> verify login functionality
+2. Leaderboard UI -> Sudoku frontend logic
+3. Write sudoku algorithm in rest api
+4. connect frontend backend logic
+
