@@ -87,3 +87,4 @@ Order of changes should be:
 3. Write sudoku algorithm in rest api
 4. connect frontend backend logic
 
+currently 1.3

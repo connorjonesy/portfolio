@@ -3,8 +3,11 @@ const API_URL = window.location.hostname === "localhost"
 	: "https://facebook.com" // my production site
 //-----------------------Not Sudoku---------------------------
 
+//globals
 let section = document.getElementById('dynamic_section');
 let wrapper = document.getElementById('wrapper');
+let timerInterval
+let elapsedSeconds
 
 //Links
 let about_me_link = document.getElementById('link1');
@@ -106,6 +109,22 @@ function hide_login_forms() {
 	login_div.style.display = 'none';
 }
 
+/* setInterval(func, delay) 
+ * func is executed every delay milliseconds
+*/
+function start_timer() {
+	let elapsedSeconds = 0;
+	timerInterval = setInterval(() => {
+		elapsedSeconds++;
+	}, 1000);
+}
+
+function stop_timer() {
+	clearInterval(timerInterval)
+	timerInterval = null
+	return elapsedSeconds
+}
+
 document.getElementById("login_form").addEventListener("submit", async (e) => {
 	e.preventDefault();  // stops the page from reloading
 
@@ -121,9 +140,11 @@ document.getElementById("login_form").addEventListener("submit", async (e) => {
 	if (response.ok) {
 		const data = await response.json();
 		localStorage.setItem("token", data.access_token); //store the JWT
-		//Start a timer..
 		hide_login_forms();
-		// Need to call the Sudoku API from here somehow...
+		//something like the following flow
+		//const puzzle = await fetch_puzzle();
+		//render_puzzle(puzzle);
+		start_timer();
 	} else {
 		const error = await response.json();
 		console.error(error.detail);
@@ -148,8 +169,10 @@ document.getElementById("register_form").addEventListener("submit", async (e) =>
 		const data = await response.json();
 		localStorage.setItem("token", data.access_token); //store the JWT
 		hide_login_forms();
-		//Start a timer..
-		// Need to call the Sudoku API from here somehow...
+		//something like the following flow
+		//const puzzle = await fetch_puzzle();
+		//render_puzzle(puzzle);
+		start_timer();
 	} else {
 		const error = await response.json();
 		console.error(error.detail);
