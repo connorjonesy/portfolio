@@ -231,7 +231,7 @@ async function verifySolution() {
 
 function update_cell(e) {
 	console.log('cell clicked: ', e.target);
-	e.target.classList.add('selected');
+	//e.target.classList.add('selected');
 	//ehhh not quite what we want. Might be overthinking this...
 }
 

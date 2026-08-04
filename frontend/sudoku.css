@@ -27,8 +27,9 @@
 	background-color: white;
 }
 
-.sud_cell.selected {
-  background: #cde;
+.sud_cell:focus {
+  background-color: rgba(255, 87, 51, 0.5);
+  color: 'white';
 }
 
 .login_btns{
