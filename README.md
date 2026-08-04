@@ -72,6 +72,7 @@ Sudoku
 * Also learned querySelectorAll returns a NodeList, which does **not** have an addEventListener method. This means it's imperative to loop thru each element in the list and add it to its own event listener.
 * Storing JWT in localStorage because this website is pretty low traffic low stakes. With a real data-intensive site I would need to do something different
 * Added some allowed origins into the .env so I can test the frontend workflows connecting to the API in the dev environment and eventually the prod environemnt
+* CSS square brackets for attributes. cool
 
 
 small UI overlay for login overtop the board
@@ -88,4 +89,4 @@ Order of changes should be:
 3. Write sudoku algorithm in rest api
 4. connect frontend backend logic
 
-currently 2
+currently trying to figure out how to get cell input JS

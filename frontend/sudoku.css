@@ -1,6 +1,7 @@
 #wrapper.sudoku-active{
     width: 80%;
 }
+
 #sud_container {
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
@@ -24,6 +25,10 @@
 
 .sud_cell:hover{
 	background-color: white;
+}
+
+.sud_cell.selected {
+  background: #cde;
 }
 
 .login_btns{

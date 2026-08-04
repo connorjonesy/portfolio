@@ -11,8 +11,9 @@ const API_URL = "http://localhost:8000";
 //globals
 let section = document.getElementById('dynamic_section');
 let wrapper = document.getElementById('wrapper');
-let timerInterval
-let elapsedSeconds
+let container;
+let timerInterval;
+let elapsedSeconds;
 
 //Links
 let about_me_link = document.getElementById('link1');
@@ -80,17 +81,28 @@ wrapper.addEventListener('click', function(e) {
 	if (e.target.classList.contains('login_btns')) {
 		on_login(e);
 	}
+	if (e.target.classList.contains('sud_cell')) {
+		on_puzzle_input(e);
+	}
 });
 
 //-----------------------Sudoku---------------------------
 
 function makeGrid() {
-	let container = document.getElementById('sud_container');
+	container = document.getElementById('sud_container');
 	for (let i = 0; i < 81; i++) {
 		let cell = document.createElement("div");
 		cell.classList.add("sud_cell");
 		cell.dataset.row = Math.floor(i / 9);
 		cell.dataset.col = i % 9;
+		cell.tabIndex = 0; //lets the element be focusable
+		cell.focus(); // ensures it can receive keydown
+		cell.style.color = 'white';
+		cell.addEventListener('keydown', (e) => {
+			if (e.key.length === 1) { // ignore shift, Enter, arrow keys etc
+				cell.textContent = e.key;
+			}
+		});
 		container.append(cell);
 	}
 }
@@ -130,7 +142,7 @@ function stop_timer() {
 	return elapsedSeconds
 }
 
-document, addEventListener("submit", async (e) => {
+document.addEventListener("submit", async (e) => {
 	if (e.target.id === "login_form") {
 		e.preventDefault()
 		const username = document.getElementById("username_login").value;
@@ -147,9 +159,8 @@ document, addEventListener("submit", async (e) => {
 			localStorage.setItem("token", data.access_token); //store the JWT
 			hide_login_forms();
 			console.log("Login has worked");
-			//something like the following flow
-			//const puzzle = await fetch_puzzle();
-			//render_puzzle(puzzle);
+			const puzzle = await fetch_puzzle();
+			render_puzzle(puzzle);
 			//start_timer();
 		} else {
 			const error = await response.json();
@@ -173,9 +184,8 @@ document, addEventListener("submit", async (e) => {
 			localStorage.setItem("token", data.access_token); //store the JWT
 			hide_login_forms();
 			console.log("Register has worked");
-			//something like the following flow
-			//const puzzle = await fetch_puzzle();
-			//render_puzzle(puzzle);
+			const puzzle = await fetch_puzzle();
+			render_puzzle(puzzle);
 			//start_timer();
 		} else {
 			const error = await response.json();
@@ -183,3 +193,67 @@ document, addEventListener("submit", async (e) => {
 		}
 	}
 });
+
+/*
+ * returns puzzle json with ID and the puzzle positions
+ * TODO write endpoint in main
+*/
+async function fetch_puzzle() {
+	const response = await fetch(`${API_URL}/sudoku/new`, {
+		headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+	})
+	return response.json()
+}
+
+function render_puzzle(puzzle) {
+	//TODO
+}
+
+function get_board() {
+	//TODO after render puzzle
+}
+
+async function verifySolution() {
+	const token = localStorage.getItem("token")
+	const userSolution = get_board()
+
+	const response = await fetch(`${API_URL}/sudoku/verify`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`
+		},
+		body: JSON.stringify({ solution: userSolution })
+	})
+	const data = await response.json()
+	return data.correct
+}
+
+function update_cell(e) {
+	console.log('cell clicked: ', e.target);
+	e.target.classList.add('selected');
+	//ehhh not quite what we want. Might be overthinking this...
+}
+
+async function on_puzzle_input(e) {
+	update_cell(e)
+
+	/*
+	if (isPuzzleComplete()) {
+		const correct = await verifySolution()
+
+		if (correct) {
+			const time = stop_timer()
+			await postToLeaderboard(time) //TODO leaderboard
+		} else {
+			// TODO tell user the solution is wrong, keep timer running
+		}
+	}
+	*/
+}
+
+//probably good
+function isPuzzleComplete() {
+	const cells = document.querySelectorAll(".sud-cell")
+	return [...cells].every(cell => cell.value !== "")
+}
