@@ -1,6 +1,8 @@
+import os
 from typing import List  #Python module
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -15,6 +17,15 @@ from app.security.security import (
 from shared.database import get_db
 
 app = FastAPI()
+
+origins = os.environ.get("ALLOWED_ORIGINS", "").split(",")
+app.add_middleware(
+        CORSMiddleware, 
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        )
 
 @app.get("/health")
 def health():

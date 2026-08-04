@@ -67,10 +67,11 @@ Hot reloaded frontend? Not in this environment. I feel like 2 Dockerfiles in the
 
 
 Sudoku
-Learned something new: Every HTML element has a classList property because html elements can have multiple classes. classList is a DOMTokenList that comes with methods like add, remove, toggle, contains etc. 
-I went with the add method for the sudoku link click target and remove method for all other pages. It doesn't look like any errors are thrown when removing something that isn't there, so, I think it works!
-Also learned querySelectorAll returns a NodeList, which does **not** have an addEventListener method. This means it's imperative to loop thru each element in the list and add it to its own event listener.
-Storing JWT in localStorage because this website is pretty low traffic low stakes. With a real data-intensive site I would need to do something different
+* Learned something new: Every HTML element has a classList property because html elements can have multiple classes. classList is a DOMTokenList that comes with methods like add, remove, toggle, contains etc. 
+* I went with the add method for the sudoku link click target and remove method for all other pages. It doesn't look like any errors are thrown when removing something that isn't there, so, I think it works!
+* Also learned querySelectorAll returns a NodeList, which does **not** have an addEventListener method. This means it's imperative to loop thru each element in the list and add it to its own event listener.
+* Storing JWT in localStorage because this website is pretty low traffic low stakes. With a real data-intensive site I would need to do something different
+* Added some allowed origins into the .env so I can test the frontend workflows connecting to the API in the dev environment and eventually the prod environemnt
 
 
 small UI overlay for login overtop the board
@@ -82,9 +83,9 @@ alembic migration would include new table for all time scores related to a user
 + a daily time for the original table methinks (user table)
 
 Order of changes should be:
-1. Login Overlay -> connect to backend -> verify login functionality
+1. Login Overlay -> connect to backend -> **verify login functionality**
 2. Leaderboard UI -> Sudoku frontend logic
 3. Write sudoku algorithm in rest api
 4. connect frontend backend logic
 
-currently 1.3
+currently 2

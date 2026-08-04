@@ -1,6 +1,11 @@
+/*
 const API_URL = window.location.hostname === "localhost"
 	? "http://localhost:8000"
-	: "https://facebook.com" // my production site
+	: "" // prod
+*/
+
+const API_URL = "http://localhost:8000";
+
 //-----------------------Not Sudoku---------------------------
 
 //globals
@@ -125,56 +130,56 @@ function stop_timer() {
 	return elapsedSeconds
 }
 
-document.getElementById("login_form").addEventListener("submit", async (e) => {
-	e.preventDefault();  // stops the page from reloading
+document, addEventListener("submit", async (e) => {
+	if (e.target.id === "login_form") {
+		e.preventDefault()
+		const username = document.getElementById("username_login").value;
+		const password = document.getElementById("pw_login").value;
 
-	const username = document.getElementById("username_login").value;
-	const password = document.getElementById("pw_login").value;
+		const response = await fetch(`${API_URL}/auth/login`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ username, password })
+		});
 
-	const response = await fetch(`${API_URL}/auth/login`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ username, password })
-	});
-
-	if (response.ok) {
-		const data = await response.json();
-		localStorage.setItem("token", data.access_token); //store the JWT
-		hide_login_forms();
-		//something like the following flow
-		//const puzzle = await fetch_puzzle();
-		//render_puzzle(puzzle);
-		start_timer();
-	} else {
-		const error = await response.json();
-		console.error(error.detail);
+		if (response.ok) {
+			const data = await response.json();
+			localStorage.setItem("token", data.access_token); //store the JWT
+			hide_login_forms();
+			console.log("Login has worked");
+			//something like the following flow
+			//const puzzle = await fetch_puzzle();
+			//render_puzzle(puzzle);
+			//start_timer();
+		} else {
+			const error = await response.json();
+			console.error(error.detail);
+		}
 	}
-});
+	if (e.target.id === "register_form") {
+		e.preventDefault()
+		const username = document.getElementById("username_reg").value;
+		const password = document.getElementById("pw_reg").value;
+		const email = document.getElementById("email_reg").value;
 
+		const response = await fetch(`${API_URL}/users`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ username, email, password })
+		});
 
-document.getElementById("register_form").addEventListener("submit", async (e) => {
-	e.preventDefault();  // stops the page from reloading
-
-	const username = document.getElementById("username_reg").value;
-	const password = document.getElementById("pw_reg").value;
-	const email = document.getElementById("email_reg").value;
-
-	const response = await fetch(`${API_URL}/users`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ username, email, password })
-	});
-
-	if (response.ok) {
-		const data = await response.json();
-		localStorage.setItem("token", data.access_token); //store the JWT
-		hide_login_forms();
-		//something like the following flow
-		//const puzzle = await fetch_puzzle();
-		//render_puzzle(puzzle);
-		start_timer();
-	} else {
-		const error = await response.json();
-		console.error(error.detail);
+		if (response.ok) {
+			const data = await response.json();
+			localStorage.setItem("token", data.access_token); //store the JWT
+			hide_login_forms();
+			console.log("Register has worked");
+			//something like the following flow
+			//const puzzle = await fetch_puzzle();
+			//render_puzzle(puzzle);
+			//start_timer();
+		} else {
+			const error = await response.json();
+			console.error(error.detail);
+		}
 	}
 });
