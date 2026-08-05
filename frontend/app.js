@@ -14,6 +14,7 @@ let wrapper = document.getElementById('wrapper');
 let container;
 let timerInterval;
 let elapsedSeconds;
+let sud_board = [];
 
 //Links
 let about_me_link = document.getElementById('link1');
@@ -81,9 +82,6 @@ wrapper.addEventListener('click', function(e) {
 	if (e.target.classList.contains('login_btns')) {
 		on_login(e);
 	}
-	if (e.target.classList.contains('sud_cell')) {
-		on_puzzle_input(e);
-	}
 });
 
 //-----------------------Sudoku---------------------------
@@ -99,8 +97,9 @@ function makeGrid() {
 		cell.focus(); // ensures it can receive keydown
 		cell.style.color = 'white';
 		cell.addEventListener('keydown', (e) => {
-			if (e.key.length === 1) { // ignore shift, Enter, arrow keys etc
+			if (e.key.valueOf() >= 1 && e.key.valueOf() <= 9) {
 				cell.textContent = e.key;
+				on_puzzle_input();
 			}
 		});
 		container.append(cell);
@@ -199,23 +198,34 @@ document.addEventListener("submit", async (e) => {
  * TODO write endpoint in main
 */
 async function fetch_puzzle() {
-	const response = await fetch(`${API_URL}/sudoku/new`, {
+	const response = await fetch(`${API_URL}/sudoku/daily`, {
 		headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
-	})
-	return response.json()
+	});
+	return response.json();
 }
 
 function render_puzzle(puzzle) {
-	//TODO
+	//puzzle is json atm
+	const parsedPuzzle = JSON.parse(puzzle);
+	//hopefully this is an array^ ??
+	const cells = document.querySelectorAll(".sud-cell");
+	cells.forEach((cell, index) => {
+		cell.textContent = parsedPuzzle[index];
+	});
+
 }
 
 function get_board() {
-	//TODO after render puzzle
+	//my genius idea: just grab the board all at once from the UI
+	const cells = document.querySelectorAll(".sud-cell");
+	cells.forEach(cell => {
+		sud_board.push(cell.value);
+	});
 }
 
 async function verifySolution() {
-	const token = localStorage.getItem("token")
-	const userSolution = get_board()
+	const token = localStorage.getItem("token");
+	const userSolution = get_board();
 
 	const response = await fetch(`${API_URL}/sudoku/verify`, {
 		method: "POST",
@@ -225,35 +235,26 @@ async function verifySolution() {
 		},
 		body: JSON.stringify({ solution: userSolution })
 	})
-	const data = await response.json()
-	return data.correct
+	const data = await response.json();
+	return data.correct;
 }
 
-function update_cell(e) {
-	console.log('cell clicked: ', e.target);
-	//e.target.classList.add('selected');
-	//ehhh not quite what we want. Might be overthinking this...
-}
-
-async function on_puzzle_input(e) {
-	update_cell(e)
-
-	/*
+async function on_puzzle_input() {
 	if (isPuzzleComplete()) {
-		const correct = await verifySolution()
+		const correct = await verifySolution();
 
 		if (correct) {
-			const time = stop_timer()
-			await postToLeaderboard(time) //TODO leaderboard
+			const time = stop_timer();
+			await postToLeaderboard(time); //TODO leaderboard
 		} else {
 			// TODO tell user the solution is wrong, keep timer running
+			// im thinking even just blink the board with a red border
 		}
 	}
-	*/
 }
 
 //probably good
 function isPuzzleComplete() {
-	const cells = document.querySelectorAll(".sud-cell")
-	return [...cells].every(cell => cell.value !== "")
+	const cells = document.querySelectorAll(".sud-cell");
+	return [...cells].every(cell => cell.value !== "");
 }

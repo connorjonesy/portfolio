@@ -84,9 +84,12 @@ alembic migration would include new table for all time scores related to a user
 + a daily time for the original table methinks (user table)
 
 Order of changes should be:
-1. Login Overlay -> connect to backend -> **verify login functionality**
+1. Login Overlay -> connect to backend -> verify login functionality
 2. Leaderboard UI -> Sudoku frontend logic
 3. Write sudoku algorithm in rest api
 4. connect frontend backend logic
 
-currently trying to figure out how to get cell input JS
+Sudoku frontend logic basically complete
+- last thing, need to write logic to not overwrite the API positions.
+- ill do this after I build the endpoints though
+Need a leaderboard UI and need to build out the sudoki API in the backend
