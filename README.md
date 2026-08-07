@@ -93,3 +93,11 @@ Sudoku frontend logic basically complete
 - last thing, need to write logic to not overwrite the API positions.
 - ill do this after I build the endpoints though
 Need a leaderboard UI and need to build out the sudoki API in the backend
+
+Ideas for sudoku puzzle generator:
+Idea 1: 26 random numbers [0,9], verify_its_legal(), repeat until True.
+verify_its_legal would be basically the same as verify, except it makes fewer comparisons
+a given position would need to check its column, row, and 3x3 square.
+
+the positions in the kv pair are from 0 to 80 (DOUBLE CHECK THATS SAME AS THE JS)
+note that the response will be a list of string,int pairs

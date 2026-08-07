@@ -1,4 +1,5 @@
 import os
+import random
 from typing import List  #Python module
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -7,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.user import User
-from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse
+from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse, SudokuResponse
 from app.security.security import (
     create_access_token,
     get_current_user,
@@ -84,3 +85,44 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
     token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer"}
 
+"""
+For now ill generate this each time because im curious how long the alg will take
+Future todo will be to store in the DB, create a GEN puzzle endpoint that gets called by
+the js once every morning, and then the fetch puzzle will simply grab it from the db
+"""
+@app.get("/sudoku/daily", response_model=SudokuResponse)
+def get_puzzle():
+    verify_positions = False
+    positions = generate_positions() #26 KV pairs, numbers all 0 atm
+    while (verify_positions == False):
+        for position in positions:
+            position["num"] = random.randint(1,9)
+        verify_positions = verify_puzzle(positions) #TODO
+        if not verify_positions:
+            positions = generate_positions() #26 KV pairs, numbers all 0 atm
+
+    return positions
+
+def generate_positions():
+    positions = [] #KV pairs
+    for i in range(26):
+        newpos = {"pos": random.randint(0,80), "num": 0}
+        positions[i] = newpos
+    return positions
+
+def verify_puzzle(positions):
+    pos_data = []
+    i = 0
+    for position in positions:
+            row = position["pos"] // 9
+            col = position["pos"] % 9
+            box = (row // 3) * 3 + (col // 3)
+            num = position["num"]
+            pos_data[i] = [row,col,box,num]
+            i+=1
+    #compare - nested for loop
+    for i in range(len(pos_data)):
+        for j in range(i + 1, len(pos_data)):
+            if(pos_data[i][3] == pos_data[j][3]):
+                return False
+    return True

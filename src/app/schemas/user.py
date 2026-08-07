@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class UserCreate(BaseModel):
     """What the API expects when creating a user"""
     username: str
@@ -23,3 +22,6 @@ class UserLogin(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
+
+class SudokuResponse(BaseModel):
+    daily_puzzle: list[dict[str, int]]

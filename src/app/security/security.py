@@ -44,7 +44,7 @@ def get_current_user(
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub") # retreive the subject of the jwt
+        user_id: str = payload.get("sub") # retrieve the subject of the jwt
         if user_id is None:
             raise credentials_exception #Note: unreachable code??
     except JWTError:
