@@ -5,6 +5,7 @@ const API_URL = window.location.hostname === "localhost"
 */
 
 const API_URL = "http://localhost:8000";
+const SUD_API = "https://sudoku-api.vercel.app/api/dosuku"
 
 //-----------------------Not Sudoku---------------------------
 
@@ -15,6 +16,7 @@ let container;
 let timerInterval;
 let elapsedSeconds;
 let sud_board = [];
+let loggedIn = false;
 
 //Links
 let about_me_link = document.getElementById('link1');
@@ -156,11 +158,12 @@ document.addEventListener("submit", async (e) => {
 		if (response.ok) {
 			const data = await response.json();
 			localStorage.setItem("token", data.access_token); //store the JWT
+			loggedIn = true;
 			hide_login_forms();
 			console.log("Login has worked");
 			const puzzle = await fetch_puzzle();
 			render_puzzle(puzzle);
-			//start_timer();
+			start_timer();
 		} else {
 			const error = await response.json();
 			console.error(error.detail);
@@ -181,11 +184,12 @@ document.addEventListener("submit", async (e) => {
 		if (response.ok) {
 			const data = await response.json();
 			localStorage.setItem("token", data.access_token); //store the JWT
+			loggedIn = true;
 			hide_login_forms();
 			console.log("Register has worked");
 			const puzzle = await fetch_puzzle();
 			render_puzzle(puzzle);
-			//start_timer();
+			start_timer();
 		} else {
 			const error = await response.json();
 			console.error(error.detail);
@@ -193,68 +197,79 @@ document.addEventListener("submit", async (e) => {
 	}
 });
 
-/*
- * returns puzzle json with ID and the puzzle positions
- * TODO write endpoint in main
-*/
 async function fetch_puzzle() {
-	const response = await fetch(`${API_URL}/sudoku/daily`, {
-		headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
-	});
-	return response.json();
+	const response = await fetch(`${SUD_API}?query={newboard(limit:1){grids{value}}}`);
+	const data = await response.json();
+	//console.log(data.newboard.grids[0].value[0][0])
+	return data
 }
 
 function render_puzzle(puzzle) {
-	//puzzle is json atm
-	const parsedPuzzle = JSON.parse(puzzle);
-	//hopefully this is an array^ ??
-	const cells = document.querySelectorAll(".sud-cell");
+	parsed = [];
+	for (i = 0; i < 9; i++) { //9 boxes
+		for (j = 0; j < 9; j++) { //9 vals
+			parsed.push(puzzle.newboard.grids[0].value[i][j]);
+		}
+	}
+	const cells = document.querySelectorAll(".sud_cell");
 	cells.forEach((cell, index) => {
-		cell.textContent = parsedPuzzle[index];
+		if (parsed[index] != 0)
+			cell.textContent = parsed[index];
 	});
-
 }
 
 function get_board() {
-	//my genius idea: just grab the board all at once from the UI
-	const cells = document.querySelectorAll(".sud-cell");
+	const cells = document.querySelectorAll(".sud_cell");
 	cells.forEach(cell => {
-		sud_board.push(cell.value);
+		sud_board.push(cell.textContent);
 	});
+	return sud_board;
 }
 
 async function verifySolution() {
-	const token = localStorage.getItem("token");
+	//const token = localStorage.getItem("token");
 	const userSolution = get_board();
 
-	const response = await fetch(`${API_URL}/sudoku/verify`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": `Bearer ${token}`
-		},
-		body: JSON.stringify({ solution: userSolution })
-	})
-	const data = await response.json();
-	return data.correct;
+	const solution = await fetch(`${SUD_API}?query={newboard(limit:1){grids{solution}}}`);
+	const data = await solution.json();
+	//console.log(data.newboard.grids[0].solution[0][0])
+	parsed = [];
+	for (i = 0; i < 9; i++) { //9 boxes
+		for (j = 0; j < 9; j++) { //9 vals
+			parsed.push(data.newboard.grids[0].solution[i][j]);
+		}
+	}
+	console.log("User Sol");
+	console.log(userSolution);
+	console.log("Sol");
+	console.log(parsed);
+
+	for (i = 0; i < 81; i++) {
+		if (parsed[i] == userSolution[i])
+			return false;
+	}
+
+	return true;
 }
 
 async function on_puzzle_input() {
-	if (isPuzzleComplete()) {
+	if (loggedIn && isPuzzleComplete()) {
 		const correct = await verifySolution();
 
 		if (correct) {
 			const time = stop_timer();
-			await postToLeaderboard(time); //TODO leaderboard
+			console.log("if block");
+			//await postToLeaderboard(time); //TODO leaderboard
 		} else {
+			console.log("else block");
 			// TODO tell user the solution is wrong, keep timer running
 			// im thinking even just blink the board with a red border
 		}
 	}
 }
 
-//probably good
 function isPuzzleComplete() {
-	const cells = document.querySelectorAll(".sud-cell");
-	return [...cells].every(cell => cell.value !== "");
+	const cells = document.querySelectorAll(".sud_cell");
+	return true;
+	//return [...cells].every(cell => cell.textContent !== "");
 }

@@ -23,5 +23,13 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str
 
+"""
+#Ive decided to roll my own sudoku later
+class SudokuClue(BaseModel):
+    pos: int # 0-80
+    num: int # 1-9
+
 class SudokuResponse(BaseModel):
-    daily_puzzle: list[dict[str, int]]
+    daily_puzzle: list[SudokuClue]
+
+"""

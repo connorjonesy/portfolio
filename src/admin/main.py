@@ -1,5 +1,4 @@
 import os
-import random
 from typing import List  #Python module
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -8,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.user import User
-from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse, SudokuResponse
+from app.schemas.user import TokenResponse, UserCreate, UserLogin, UserResponse
 from app.security.security import (
     create_access_token,
     get_current_user,
@@ -89,40 +88,58 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
 For now ill generate this each time because im curious how long the alg will take
 Future todo will be to store in the DB, create a GEN puzzle endpoint that gets called by
 the js once every morning, and then the fetch puzzle will simply grab it from the db
+
+Update: Wow this alg sucks. Rolling your own sudoku is hard, maybe I come back to this later...
+"""
 """
 @app.get("/sudoku/daily", response_model=SudokuResponse)
 def get_puzzle():
-    verify_positions = False
     positions = generate_positions() #26 KV pairs, numbers all 0 atm
-    while (verify_positions == False):
+    while True:
+        positions = generate_positions()
         for position in positions:
             position["num"] = random.randint(1,9)
-        verify_positions = verify_puzzle(positions) #TODO
-        if not verify_positions:
-            positions = generate_positions() #26 KV pairs, numbers all 0 atm
-
-    return positions
+        if not verify_puzzle(positions):
+            print("This list of clues conflict, retrying...\n")
+            continue
+        solution_count = count_solutions(positions)
+        if solution_count == 1:
+            break
+        print(f"Found {solution_count} solutions, retrying...\n")
+    return {"daily_puzzle": positions}
 
 def generate_positions():
-    positions = [] #KV pairs
-    for i in range(26):
-        newpos = {"pos": random.randint(0,80), "num": 0}
-        positions[i] = newpos
-    return positions
+    positions = random.sample(range(81), 36)
+    return [{"pos": pos, "num": 0} for pos in positions]
 
 def verify_puzzle(positions):
     pos_data = []
-    i = 0
     for position in positions:
             row = position["pos"] // 9
             col = position["pos"] % 9
             box = (row // 3) * 3 + (col // 3)
             num = position["num"]
-            pos_data[i] = [row,col,box,num]
-            i+=1
+            pos_data.append([row,col,box,num])
     #compare - nested for loop
     for i in range(len(pos_data)):
         for j in range(i + 1, len(pos_data)):
-            if(pos_data[i][3] == pos_data[j][3]):
+            if(pos_data[i][3] == pos_data[j][3] and pos_data[i][0] == pos_data[j][0]):
+                return False
+            if(pos_data[i][3] == pos_data[j][3] and pos_data[i][1] == pos_data[j][1]):
+                return False
+            if(pos_data[i][3] == pos_data[j][3] and pos_data[i][2] == pos_data[j][2]):
                 return False
     return True
+
+
+
+def count_solutions(positions, limit=2):
+    # build an 81-cell board from the clues
+    board = [0] * 81
+    for clue in positions:
+        board[clue["pos"]] = clue["num"]
+
+    return _backtrack(board, 0, limit)
+
+
+"""

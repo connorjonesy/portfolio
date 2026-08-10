@@ -101,3 +101,12 @@ a given position would need to check its column, row, and 3x3 square.
 
 the positions in the kv pair are from 0 to 80 (DOUBLE CHECK THATS SAME AS THE JS)
 note that the response will be a list of string,int pairs
+
+
+UPDATE im not rolling my own solution anymore. Wow that was hard
+just using a simple api for now
+can proxy requests thru backend later
+
+TODO write here about how backtracking alg is maybe required for making the sudoku api so for now just calling a random one
+
+TODO now: write leaderboard logic!! woohooo!! then we almost doneee
