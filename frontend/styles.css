@@ -1,37 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-*{
-    box-sizing: border-box;
-    padding: 0;
+
+html, body {
+    height: 100%;
     margin: 0;
 }
 body{
     background-image: url('images/bg2.jpg');
     background-size: contain;
     background-repeat: repeat;
-    width: 100%;
-    min-height: 94vh;
-    height: 100%;
-    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
     font-family: 'JetBrains Mono', monospace;
+    /*border: 2px solid yellow;*/
 }
-
 #wrapper{
     background-color: #1c1e1f;
     width: 1000px;
-    height: 80%;
-    margin: 50px auto;
+    height: 800px;
+    margin: 50px 0;
     display: flex;
+    /*border: 2px solid purple;*/
 }
 
 #nav{
-    flex: 20%;
+    flex: 0 0 120px;
     padding: 10px;
     /* line-height: 40px; */
     /* border: 1px solid white; */
-    margin-right: 10px;
 }
 
 #nav ul{
+    padding: 0;
+    margin: 0;
     list-style-type: none;
 }
 
@@ -83,26 +84,38 @@ a:hover{
 footer{
 position: absolute;
 bottom: 0px;
+left: 6px;
 }
+
 #hero-img{
-    width: 460px;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
     box-shadow: 5px 5px 50px;
+    display: block;
 }
+
+
 .slash{
     color: #8d8e8f;
 }
 #dynamic_section{
-    padding: 24px;
-    flex: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    /*border: 2px solid white;*/
+    display: flex;
 }
 #herowrapper{
+    flex: 0 0 400px;
     position: relative;
-    /* border: 2px solid white; */
+    width: 400px;
+    height: 100%;
+    /*border: 2px solid white;*/
 }
 #hero-info{
     position: absolute;
-    top: 80%;
+    bottom: 20px;
     left: 0;
     right: 0;
     margin: auto;
@@ -110,11 +123,11 @@ bottom: 0px;
     z-index: 2;
     text-align: center;
     font-family: Helvetica;
+    background-color: #1c1e1f;
+    /* x-offset y-offset blur-radius spread-radius color */
+    box-shadow: 0 0 15px 2px rgba(176, 216, 247, 0.6);
 }
 
-#hero-info h2{
-    padding-bottom: 20px;
-}
 #hero-info a{
     margin: 10px;
     padding: 10px;
@@ -132,11 +145,18 @@ bottom: 0px;
 #abme1{
     padding-bottom: 20px;
 }
+
+#headermain{
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 20px;
+    overflow-y: auto;
+    /*border: 3px solid green;*/
+}
+
 #headermain p{
     padding-bottom: 20px;
-}
-.white{
-    color: #ffffff;
 }
 
 form{
@@ -158,6 +178,8 @@ input[type=submit]{
     padding: 10px;
     width: 100%;
 }
+
+/* breakpoint ----------------------------------------------------*/
 @media screen and (max-width:1024px){
     #wrapper{
         width: 100%;
@@ -198,11 +220,13 @@ input[type=submit]{
         padding-bottom: 20px;
     }
     footer{
-        right: 6px;
         display: none;
     }
 }
 
+
+
+/* breakpoint ----------------------------------------------------*/
 @media screen and (max-width: 768px){
     #wrapper{
         display: grid;

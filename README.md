@@ -104,9 +104,29 @@ note that the response will be a list of string,int pairs
 
 
 UPDATE im not rolling my own solution anymore. Wow that was hard
-just using a simple api for now
+just using a simple external api for now
 can proxy requests thru backend later
 
 TODO write here about how backtracking alg is maybe required for making the sudoku api so for now just calling a random one
 
-TODO now: write leaderboard logic!! woohooo!! then we almost doneee
+TODO now: write leaderboard logic!! woohooo!!
+TODO later or now: Firebase host
+
+Leaderboard thoughts
+Im thinking we should leave the leaderboard for later. For now we just can let the user play sudoku.
+need to:
+* make a HTML list that displays the username and score(time to solve)
+  * this is for Daily scores only for now. Future potential is to list all time scores but... idk
+  * list needs to be like a dynamic array... also not super important (0 users)
+  * should be located on top of either the board area OR on top of the hero img, but this would need to change per display breakpoint
+* backend API endpoint POST to leaderboard.
+* backend API endpoint GET full leaderboard
+* change the DB... need to do the first big migration... adding 1 row to the users table that tracks daily score. I think this is all we need for now, because hopefully there is a way to query the DB with SQL Alchemy that allows us to get all users with a daily_score and sort them, then we spit this out of the GET full leaderboard endpoint
+* JS calls postToLeaderboard function which does exactly that
+* else JS tells user keep trying cuz theyre solution is wrong
+
+FLOW:
+1. if sol is correct, postToLeaderboard(time, something to identify the user [JWT?])
+2. postToLeaderboard calls API
+3. API posts score to the user in the DB. Once successful, it sends back the leaderboard. maybe change this to a GET then.
+4. frontend gets the ledaerboard back and pushes it into the HTML

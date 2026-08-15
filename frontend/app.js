@@ -248,8 +248,16 @@ async function verifySolution() {
 		if (parsed[i] == userSolution[i])
 			return false;
 	}
-
 	return true;
+}
+
+function displayStatusMsg(status) {
+	let status_msg_0 = document.getElementById('status_msg_0');
+	let status_msg_1 = document.getElementById('status_msg_1');
+	if (status == 0)
+		status_msg_0.style.display = 'block';
+	if (status == 1)
+		status_msg_1.style.display = 'block';
 }
 
 async function on_puzzle_input() {
@@ -258,18 +266,17 @@ async function on_puzzle_input() {
 
 		if (correct) {
 			const time = stop_timer();
-			console.log("if block");
-			//await postToLeaderboard(time); //TODO leaderboard
+			displayStatusMsg(1);
+			console.log("Time is: ", time);
+			//await postToLeaderboard(time); //TODO leaderboard, see readme
 		} else {
 			console.log("else block");
-			// TODO tell user the solution is wrong, keep timer running
-			// im thinking even just blink the board with a red border
+			displayStatusMsg(0);
 		}
 	}
 }
 
 function isPuzzleComplete() {
 	const cells = document.querySelectorAll(".sud_cell");
-	return true;
-	//return [...cells].every(cell => cell.textContent !== "");
+	return [...cells].every(cell => cell.textContent !== "");
 }
