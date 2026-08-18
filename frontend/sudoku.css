@@ -1,5 +1,5 @@
-#wrapper.sudoku-active{
-    width: 80%;
+#herowrapper.sudoku-active{
+    display: none;
 }
 
 #sud_container {

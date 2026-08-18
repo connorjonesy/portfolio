@@ -32,12 +32,14 @@ contact_link.addEventListener('click', on_link_click);
 sudoku_link.addEventListener('click', on_link_click);
 
 function on_link_click(e) {
+
+
 	if (e.currentTarget == about_me_link) {
 		fetch('abme.html')
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				wrapper.classList.remove('sudoku-active');
+				//herowrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -46,7 +48,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				wrapper.classList.remove('sudoku-active');
+				//herowrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -55,7 +57,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				wrapper.classList.remove('sudoku-active');
+				//herowrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -64,7 +66,7 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
-				wrapper.classList.remove('sudoku-active');
+				//herowrapper.classList.remove('sudoku-active');
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -73,8 +75,10 @@ function on_link_click(e) {
 			.then(response => response.text())
 			.then(html => {
 				section.innerHTML = html;
+				let herowrapper = document.getElementById('herowrapper');
 				makeGrid();
-				wrapper.classList.add('sudoku-active');
+				herowrapper.classList.add('sudoku-active');
+				console.log(herowrapper.classList);
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}

@@ -130,3 +130,9 @@ FLOW:
 2. postToLeaderboard calls API
 3. API posts score to the user in the DB. Once successful, it sends back the leaderboard. maybe change this to a GET then.
 4. frontend gets the ledaerboard back and pushes it into the HTML
+
+
+more logs
+
+Im taking out the removal of the sudoku active classList from the on link click event listeners.
+This is because its not actually necessary, I found out the hard way after struggling with debugging this. The active class is applied to a stale reference (index.html's initial herowrapper element), but the  section is rebuilt with each html fragment being grabbed on link click. So as long as we apply it to one, it has no affect on the others.
