@@ -128,22 +128,29 @@ left: 6px;
     box-shadow: 0 0 15px 2px rgba(176, 216, 247, 0.6);
 }
 
-#hero-info a{
-    margin: 10px;
+.content-btns {
+    width: 60%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
     padding: 10px;
     border: 2px solid black;
     border-radius: 10px;
     color: #1c1e1f;
     background-color: #B0D8F7;
+    display: block;
 }
-#hero-info a:hover{
+
+.content-btns:hover{
     background-color: #6596ba;
+    color: white;
 }
+
 #abme{
     padding-bottom: 20px;
 }
-#abme1{
-    padding-bottom: 20px;
+
+.content-div{
 }
 
 #headermain{
@@ -153,10 +160,6 @@ left: 6px;
     padding: 20px;
     overflow-y: auto;
     /*border: 3px solid green;*/
-}
-
-#headermain p{
-    padding-bottom: 20px;
 }
 
 form{

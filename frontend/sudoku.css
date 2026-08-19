@@ -32,6 +32,20 @@
   color: 'white';
 }
 
-.login_btns{
-	
+.login_btns {
+    width: 60%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: #1c1e1f;
+    background-color: #B0D8F7;
+    display: block;
+}
+
+.login_btns:hover{
+    background-color: #6596ba;
+    color: white;
 }
