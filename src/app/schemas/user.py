@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class UserCreate(BaseModel):
     """What the API expects when creating a user"""
     username: str
