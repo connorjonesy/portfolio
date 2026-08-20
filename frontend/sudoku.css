@@ -1,0 +1,51 @@
+#herowrapper.sudoku-active{
+    display: none;
+}
+
+#sud_container {
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	grid-template-rows: repeat(9, 1fr);
+	width: 450px;
+	height: 450px;
+	border: 2px solid #000;
+}
+
+.sud_cell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #999;
+	font-size: 1.2rem;
+	box-sizing: border-box;
+}
+
+.sud_cell[data-col="2"], .sud_cell[data-col="5"] { border-right: 5px solid white; }
+.sud_cell[data-row="2"], .sud_cell[data-row="5"] { border-bottom: 5px solid white; }
+
+.sud_cell:hover{
+	background-color: white;
+}
+
+.sud_cell:focus {
+  background-color: rgba(255, 87, 51, 0.5);
+  color: 'white';
+}
+
+.login_btns {
+    width: 60%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: #1c1e1f;
+    background-color: #B0D8F7;
+    display: block;
+}
+
+.login_btns:hover{
+    background-color: #6596ba;
+    color: white;
+}

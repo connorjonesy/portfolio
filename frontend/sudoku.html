@@ -1,0 +1,63 @@
+<div id="herowrapper">
+        <img src="images/cj4.jpg" alt="hero image" id="hero-img">
+    <div id="hero-info">
+        <h1 id="hero-h1">Connor Jones</h1>
+        <h2>Software Developer</h2>
+
+        <!--TODO move linkedin to work or contact -->
+
+        <!--
+        <a href="https://www.linkedin.com/in/connor-jones-5329ab229/" target="_blank">LinkedIn</a>
+        <a href="https://www.thefilmknight.com/" target="_blank">Film Knight</a>
+        -->
+    </div>
+</div>
+
+<div id="headermain">
+
+<h1 id="abme">Daily Sudoku</h1>
+<div id='sud_container'>
+	<!-- Will be styled sudoku wise from sudoku css file -->
+</div>
+<div id="status_msg_0" style="display:none;">
+	<h2>Not quite...</h2>
+</div>
+<div id="status_msg_1" style="display:none;">
+	<h2>Correct!</h2>
+</div>
+<div id="login_div">
+	<h2>Log in to play!</h2>
+	<button id="login_btn" class="login_btns">Log In</button>
+	<button id="register_btn" class="login_btns">Register</button>
+
+	<form id="login_form" action="" method="post" style="display:none;">
+	    <fieldset>
+		    <legend>Log In</legend>
+		    <label for="username_login">Username: </label>
+		    <input type="text" id="username_login">
+		    <br><br>
+		    <label for="pw_login">Password: </label>
+		    <input type="password" id="pw_login">
+		    <br><br>
+		    <input type="submit" value="Log In" id="login_submit">
+	    </fieldset>
+	</form>
+
+	<form id="register_form" action="" method="post" style="display:none;">
+	    <fieldset>
+		    <legend>Register</legend>
+		    <label for="username_reg">Username: </label>
+		    <input type="text" id="username_reg">
+		    <br><br>
+		    <label for="pw_reg">Password: </label>
+		    <input type="password" id="pw_reg">
+		    <br><br>
+		    <label for="email_reg">Email Address: </label>
+		    <input type="email" id="email_reg" size="30" required />
+		    <br><br>
+		    <input type="submit" value="Register" id="reg_submit">
+	    </fieldset>
+	</form>
+</div>
+
+</div>
