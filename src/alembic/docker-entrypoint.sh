@@ -1,4 +1,5 @@
 #!/bin/bash
 
-alembic upgrade head || exit 1
+set -e
+alembic upgrade head
 exec "$@"

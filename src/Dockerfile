@@ -15,4 +15,5 @@ COPY . .
 RUN chmod +x alembic/docker-entrypoint.sh
 
 ENTRYPOINT ["./alembic/docker-entrypoint.sh"]
-CMD ["uvicorn", "admin.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+#10000 is Render default port
+CMD ["uvicorn", "admin.main:app", "--host", "0.0.0.0", "--port", "10000", "--reload"]
