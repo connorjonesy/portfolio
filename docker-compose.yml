@@ -26,6 +26,8 @@ services:
     environment:
       #FastAPI will use this connection string via SQLAlchemy to connect to Postgres
       DATABASE_URL: ${DATABASE_URL}
+      PORT: 8000
+      ENVIRONMENT: development
     ports:
       #Maps host to container port 8000(where uvicorn listens),so we can hit localhost:8000 from browser
       - "8000:8000"

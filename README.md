@@ -137,5 +137,8 @@ more logs
 Im taking out the removal of the sudoku active classList from the on link click event listeners.
 This is because its not actually necessary, I found out the hard way after struggling with debugging this. The active class is applied to a stale reference (index.html's initial herowrapper element), but the  section is rebuilt with each html fragment being grabbed on link click. So as long as we apply it to one, it has no affect on the others.
 
+I removed the event listener from the cells for the hint cells. First time ive ever used it before. I didnt even know it was a thing until I was like wait can I remove an event listener. Works well!
+In order to do this, I had to remove the inline event listener declaration.
+
 
 PUT LEADERBOARD ON THE RIGHT HAND SIDE OF BOARD NOW@!

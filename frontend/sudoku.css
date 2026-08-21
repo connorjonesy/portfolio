@@ -34,6 +34,12 @@
   color: 'white';
 }
 
+.sud_cell.hint {
+    font-weight: bold;
+    color: #B0D8F7;
+    background-color: rgba(75, 127, 209, 0.5);
+}
+
 .login_btns {
     width: 60%;
     margin-top: 15px;
