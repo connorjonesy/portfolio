@@ -3,8 +3,10 @@ const API_URL = window.location.hostname === "localhost"
 	? "http://localhost:8000"
 	: "" // prod
 */
-
-const API_URL = "http://localhost:8000";
+const API_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+	? "http://localhost:8000"
+	: "https://portfolio-api-5w8p.onrender.com"  // my Render URL :) yay
+//const API_URL = "http://localhost:8000";
 const SUD_API = "https://sudoku-api.vercel.app/api/dosuku"
 
 //-----------------------Not Sudoku---------------------------
