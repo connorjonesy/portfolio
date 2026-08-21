@@ -271,7 +271,8 @@ input[type=submit]{
     #nav{
         grid-row: 2/3;
         /* border: 1px solid white; */
-        width: 100%;
+        width: 90%;
+        margin: auto;
     }
     
     #headermain{
