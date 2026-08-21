@@ -1,5 +1,7 @@
-#herowrapper.sudoku-active{
-    display: none;
+@media screen and (min-width: 769px){
+    #herowrapper.sudoku-active{
+        display: none;
+    }
 }
 
 #sud_container {
@@ -48,4 +50,10 @@
 .login_btns:hover{
     background-color: #6596ba;
     color: white;
+}
+
+@media screen and (max-width: 768px){
+    #herowrapper.sudoku-active{
+        display: block;
+    }
 }

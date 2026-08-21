@@ -256,16 +256,28 @@ input[type=submit]{
         min-height: 100vh;
         margin: 0;
     }
+
+    #dynamic_section{
+        /*necessary to force up the children of dynamic section into wrapper with nav for correct grid placement*/
+        display: contents;
+    }
+
     #herowrapper{
         border: none;
         width: 100%;
         grid-row: 1/2;
     }
+
     #nav{
         grid-row: 2/3;
         /* border: 1px solid white; */
         width: 100%;
     }
+    
+    #headermain{
+        grid-row: 3/4;
+    }
+
     #nav ul{
         display: flex;
         width: 100%;

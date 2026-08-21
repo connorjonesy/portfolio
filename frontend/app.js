@@ -80,7 +80,6 @@ function on_link_click(e) {
 				let herowrapper = document.getElementById('herowrapper');
 				makeGrid();
 				herowrapper.classList.add('sudoku-active');
-				console.log(herowrapper.classList);
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
