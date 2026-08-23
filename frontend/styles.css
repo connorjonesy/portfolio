@@ -195,9 +195,7 @@ input[type=submit]{
     #headermain{
         overflow: auto;
     }
-    #hero-img{
-        display: none;
-    }
+
     #herowrapper{
         border-right: 1px solid white;
         border-left: 1px solid white;
@@ -205,23 +203,41 @@ input[type=submit]{
     #herowrapper a{
         display: block;
     }
+
     #hero-info{
-    position: relative;
-    top: 2px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: 20px;
-    width: 250px;
-    z-index: 2;
-    text-align: center;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 250px;
+        z-index: 2;
+        text-align: center;
+        font-family: Helvetica;
+        background-color: #1c1e1f;
+        /* x-offset y-offset blur-radius spread-radius color */
+        box-shadow: 0 0 15px 2px rgba(176, 216, 247, 0.6);
     }
-    #hero-info h1{
-        padding-bottom: 20px;
+
+
+    .content-btns {
+        width: 60%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 10px;
+        color: #1c1e1f;
+        background-color: #B0D8F7;
+        display: block;
     }
-    #hero-info h2{
-        padding-bottom: 20px;
+
+    .content-btns:hover{
+        background-color: #6596ba;
+        color: white;
     }
+
     footer{
         display: none;
     }
@@ -231,25 +247,43 @@ input[type=submit]{
 
 /* breakpoint ----------------------------------------------------*/
 @media screen and (max-width: 768px){
+    body{
+        align-items: flex-start;
+    }
+
     #wrapper{
         display: grid;
         grid-template-columns: auto;
         grid-template-rows: 250px 100px auto;
         width: 100%;
-        height: 100%;
+        height: auto;
         min-height: 100vh;
         margin: 0;
     }
+
+    #dynamic_section{
+        /*necessary to force up the children of dynamic section into wrapper with nav for correct grid placement*/
+        display: contents;
+    }
+
     #herowrapper{
         border: none;
         width: 100%;
         grid-row: 1/2;
     }
+
     #nav{
         grid-row: 2/3;
         /* border: 1px solid white; */
-        width: 100%;
+        width: 90%;
+        margin: auto;
     }
+    
+    #headermain{
+        grid-row: 3/4;
+        overflow-y: visible;
+    }
+
     #nav ul{
         display: flex;
         width: 100%;
@@ -268,9 +302,6 @@ input[type=submit]{
         display: block;
         text-align: center;
         width: 100%;
-    }
-    #headermain{
-        grid-row: 3/4;
     }
     #hero-info{
         /* border: 1px solid white; */

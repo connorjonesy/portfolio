@@ -1,8 +1,3 @@
-/*
-const API_URL = window.location.hostname === "localhost"
-	? "http://localhost:8000"
-	: "" // prod
-*/
 const API_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
 	? "http://localhost:8000"
 	: "https://portfolio-api-5w8p.onrender.com"  // my Render URL :) yay
@@ -80,7 +75,6 @@ function on_link_click(e) {
 				let herowrapper = document.getElementById('herowrapper');
 				makeGrid();
 				herowrapper.classList.add('sudoku-active');
-				console.log(herowrapper.classList);
 			})
 			.catch(error => console.log('Error loading section: ', error));
 	}
@@ -104,13 +98,15 @@ function makeGrid() {
 		cell.tabIndex = 0; //lets the element be focusable
 		cell.focus(); // ensures it can receive keydown
 		cell.style.color = 'white';
-		cell.addEventListener('keydown', (e) => {
-			if (e.key.valueOf() >= 1 && e.key.valueOf() <= 9) {
-				cell.textContent = e.key;
-				on_puzzle_input();
-			}
-		});
+		cell.addEventListener('keydown', cell_keydown);
 		container.append(cell);
+	}
+}
+
+function cell_keydown(e) {
+	if (e.key >= '1' && e.key <= '9') {
+		e.currentTarget.textContent = e.key;
+		on_puzzle_input();
 	}
 }
 
@@ -219,8 +215,12 @@ function render_puzzle(puzzle) {
 	}
 	const cells = document.querySelectorAll(".sud_cell");
 	cells.forEach((cell, index) => {
-		if (parsed[index] != 0)
+		if (parsed[index] != 0) {
 			cell.textContent = parsed[index];
+			cell.removeEventListener('keydown', cell_keydown);
+			cell.tabIndex = -1; //remove focusablity
+			cell.classList.add('hint');
+		}
 	});
 }
 
