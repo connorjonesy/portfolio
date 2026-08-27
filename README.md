@@ -117,8 +117,8 @@ Im thinking we should leave the leaderboard for later. For now we just can let t
 need to:
 * make a HTML list that displays the username and score(time to solve)
   * this is for Daily scores only for now. Future potential is to list all time scores but... idk
-  * list needs to be like a dynamic array... also not super important (0 users)
-  * should be located on top of either the board area OR on top of the hero img, but this would need to change per display breakpoint
+  * scratch that list top 10 all time, i have no users
+  * list can just be top 10 (i have no users, so)
 * backend API endpoint POST to leaderboard.
 * backend API endpoint GET full leaderboard
 * change the DB... need to do the first big migration... adding 1 row to the users table that tracks daily score. I think this is all we need for now, because hopefully there is a way to query the DB with SQL Alchemy that allows us to get all users with a daily_score and sort them, then we spit this out of the GET full leaderboard endpoint
