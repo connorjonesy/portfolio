@@ -58,6 +58,42 @@
     color: white;
 }
 
+#leaderboard_container {
+    margin: 10px;
+    flex-grow: 1;
+}
+
+#list{
+    border: 1px solid white;
+    margin: 10px;
+    height: 90%;
+    color: white;
+}
+
+#list :nth-child(even of .list_row){
+    background-color: rgba(197, 248, 252, 0.1);
+}
+
+#list > h2 {
+    text-align: center;
+}
+
+.list_row_ids{
+    flex-grow: 1;
+    text-align: center;
+}
+
+.list_row{
+    display: flex;
+    border: 1px solid white;
+    margin: 4px;
+}
+
+
+#sud_flexbox{
+    display: flex;
+}
+
 @media screen and (max-width: 768px){
     #herowrapper.sudoku-active{
         display: block;
